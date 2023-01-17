@@ -1,19 +1,41 @@
+// react
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+// components
+import { Layout } from './Layout';
+
+// fluent ui
+import { FluentProvider, BrandVariants, createDarkTheme } from '@fluentui/react-components';
+
+const brandVariants: BrandVariants = {
+  // https://www.rampgenerator.com/
+  10: "#1C2B1F",
+  20: "#283C2D",
+  30: "#354E3B",
+  40: "#426049",
+  50: "#4E7157",
+  60: "#5B8365",
+  70: "#689573",
+  80: "#75A781",
+  90: "#83B08D",
+  100: "#91B99A",
+  110: "#9FC2A7",
+  120: "#ADCBB4",
+  130: "#BBD4C1",
+  140: "#C9DDCE",
+  150: "#D7E6DB",
+  160: "#E6EFE8"
+};
+const appTheme = createDarkTheme(brandVariants);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <FluentProvider theme={appTheme}>
+      <Layout />
+    </FluentProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
