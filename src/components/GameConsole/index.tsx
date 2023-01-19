@@ -3,8 +3,8 @@ import "./css/styles.css";
 import React from 'react';
 
 // components
-import { Display } from './components/Display';
-import Controls from './components/Controls';
+import { Display } from "../Display";
+import { Controls } from '../Controls';
 
 import { Card } from '@fluentui/react-components/unstable';
 import { makeStyles, shorthands } from "@fluentui/react-components";

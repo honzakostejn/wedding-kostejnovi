@@ -1,12 +1,14 @@
 // react
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
+import "./styles.css"
+
 // components
-import { Layout } from './Layout';
+import { App } from './components/App';
 
 // fluent ui
-import { FluentProvider, BrandVariants, createDarkTheme } from '@fluentui/react-components';
+import { FluentProvider, BrandVariants, createDarkTheme, createLightTheme } from '@fluentui/react-components';
 
 const brandVariants: BrandVariants = {
   // https://www.rampgenerator.com/
@@ -35,7 +37,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <FluentProvider theme={appTheme}>
-      <Layout />
+      <App />
     </FluentProvider>
   </React.StrictMode>
 );
