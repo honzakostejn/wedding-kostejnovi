@@ -1,14 +1,17 @@
 // react
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import "./styles.css"
+import "./fonts/PressStart2P-Regular.ttf"
 
 // components
 import { App } from './components/App';
 
 // fluent ui
-import { FluentProvider, BrandVariants, createDarkTheme, createLightTheme } from '@fluentui/react-components';
+import { FluentProvider, BrandVariants, createDarkTheme, Portal } from '@fluentui/react-components';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ErrorPage } from './components/ErrorPage';
 
 const brandVariants: BrandVariants = {
   // https://www.rampgenerator.com/
@@ -30,14 +33,25 @@ const brandVariants: BrandVariants = {
   160: "#E6EFE8"
 };
 const appTheme = createDarkTheme(brandVariants);
+appTheme.fontFamilyBase = "PressStart2P-Regular";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <FluentProvider theme={appTheme}>
-      <App />
+    <FluentProvider theme={appTheme} applyStylesToPortals={true}>
+      <Portal>
+        <RouterProvider router={router} />
+      </Portal>
     </FluentProvider>
   </React.StrictMode>
 );

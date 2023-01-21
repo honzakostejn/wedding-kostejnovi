@@ -1,5 +1,3 @@
-import "./css/styles.css";
-
 import React from 'react';
 
 // components
@@ -7,19 +5,23 @@ import { Display } from "../Display";
 import { Controls } from '../Controls';
 
 import { Card } from '@fluentui/react-components/unstable';
-import { makeStyles, shorthands } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 const useStyles = makeStyles({
   card: {
-    ...shorthands.margin('auto'),
-    maxWidth: '100%'
+    ...shorthands.margin('none', 'auto'),
+    boxShadow: tokens.shadow16,
+    maxHeight: "400px",
+    minWidth: '365px',
+    maxWidth: '50%'
   }
 });
 
 export const GameConsole: React.FC = (props) => {
+  const classes = useStyles();
 
   return (
-    <Card className={`GameConsole ${useStyles().card}`}>
+    <Card className={classes.card}>
       <Display />
       <Controls />
     </Card>
