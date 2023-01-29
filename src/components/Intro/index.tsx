@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const App: React.FC = () => {
+export const Intro: React.FC = () => {
   const classes = useStyles();
 
   return (

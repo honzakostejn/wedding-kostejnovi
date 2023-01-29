@@ -6,7 +6,8 @@ import "./styles.css"
 import "./fonts/PressStart2P-Regular.ttf"
 
 // components
-import { App } from './components/App';
+import { Intro } from './components/Intro';
+import { Info } from './components/Info';
 
 // fluent ui
 import { FluentProvider, BrandVariants, createDarkTheme, Portal } from '@fluentui/react-components';
@@ -38,9 +39,14 @@ appTheme.fontFamilyBase = "PressStart2P-Regular";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Intro />,
     errorElement: <ErrorPage />
   },
+  {
+    path: '/info',
+    element: <Info />,
+    errorElement: <ErrorPage />
+  }
 ]);
 
 const root = ReactDOM.createRoot(
