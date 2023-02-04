@@ -11,9 +11,8 @@ const useStyles = makeStyles({
   card: {
     ...shorthands.margin('none', 'auto'),
     boxShadow: tokens.shadow16,
-    maxHeight: "400px",
+    minHeight: "400px",
     minWidth: '365px',
-    maxWidth: '50%'
   }
 });
 

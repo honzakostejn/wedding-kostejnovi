@@ -3,6 +3,7 @@ import React from 'react';
 // fluent ui
 import { Card } from '@fluentui/react-components/unstable';
 import { Label, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { IHeaderProps } from '../../interfaces/IHeaderProps';
 
 const useStyles = makeStyles({
   card: {
@@ -19,13 +20,13 @@ const useStyles = makeStyles({
   }
 });
 
-export const Header: React.FC = () => {
+export const Header: React.FC<IHeaderProps> = (props) => {
   const classes = useStyles();
 
   return (
     <>
       <Card className={classes.card}>
-        <Label className={classes.label}>{"/kostejnovi/wedding> ./propose"}</Label>
+        <Label className={classes.label}>{props.headerText}</Label>
       </Card>
     </>
   );

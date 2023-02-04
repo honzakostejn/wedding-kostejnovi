@@ -26,7 +26,9 @@ export const ErrorPage: React.FC = () => {
 
   return (
     <Card className={classes.container}>
-      <Header />
+      <Header
+        headerText='/kostejnovi/wedding> ./error'
+      />
       <Label className={classes.label}>You won't find anything here...</Label>
     </Card>
   );

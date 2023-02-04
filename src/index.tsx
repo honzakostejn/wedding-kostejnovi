@@ -1,17 +1,17 @@
 // react
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import "./styles.css"
 import "./fonts/PressStart2P-Regular.ttf"
 
 // components
-import { Intro } from './components/Intro';
+import { Propose } from './components/Propose';
 import { Info } from './components/Info';
 
 // fluent ui
-import { FluentProvider, BrandVariants, createDarkTheme, Portal } from '@fluentui/react-components';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { FluentProvider, BrandVariants, createDarkTheme, Portal, createLightTheme } from '@fluentui/react-components';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import { ErrorPage } from './components/ErrorPage';
 
 const brandVariants: BrandVariants = {
@@ -33,13 +33,20 @@ const brandVariants: BrandVariants = {
   150: "#D7E6DB",
   160: "#E6EFE8"
 };
-const appTheme = createDarkTheme(brandVariants);
-appTheme.fontFamilyBase = "PressStart2P-Regular";
+const darkAppTheme = createDarkTheme(brandVariants);
+const lightAppTheme = createLightTheme(brandVariants);
+darkAppTheme.fontFamilyBase = "PressStart2P-Regular";
+lightAppTheme.fontFamilyBase = "PressStart2P-Regular";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Intro />,
+    path: '/',
+    loader: () => {return redirect('/propose')},    
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/propose",
+    element: <Propose />,
     errorElement: <ErrorPage />
   },
   {
@@ -54,7 +61,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <FluentProvider theme={appTheme} applyStylesToPortals={true}>
+    <FluentProvider theme={darkAppTheme} applyStylesToPortals={true}>
       <Portal>
         <RouterProvider router={router} />
       </Portal>
