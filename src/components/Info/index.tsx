@@ -48,7 +48,11 @@ const useStyles = makeStyles({
     textAlign: 'left',
     fontSize: tokens.fontSizeBase100,
   },
-  button: {
+  primaryButton: {
+    fontSize: tokens.fontSizeBase100,
+    color: 'black',
+  },
+  secondaryButton: {
     fontSize: tokens.fontSizeBase100,
   },
   details: {
@@ -114,14 +118,14 @@ export const Info: React.FC = () => {
               <Label size='small'>invites are closing soon, don't miss out!</Label>
               <CardFooter className={classes.cardFooter}>
                 <Button
-                  className={classes.button}
+                  className={classes.primaryButton}
                   appearance='primary'
                   onClick={() => setShowRSVP(false)}
                 >
                   send
                 </Button>
                 <Button
-                  className={classes.button}
+                  className={classes.secondaryButton}
                   appearance='secondary'
                   onClick={() => setShowRSVP(false)}
                 >
@@ -158,7 +162,7 @@ export const Info: React.FC = () => {
               </Text>
             </Card>
             <Button
-              className={classes.button}
+              className={classes.primaryButton}
               appearance='primary'
               onClick={() => setShowRSVP(true)}
             >

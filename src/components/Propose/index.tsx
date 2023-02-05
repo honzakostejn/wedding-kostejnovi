@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   },
   button: {
     fontSize: tokens.fontSizeBase100,
+    color: 'black',
   }
 });
 
