@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 import { Card } from '@fluentui/react-components/unstable';
-import { Button, Label, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { Button, Label, makeStyles, mergeClasses, shorthands, tokens } from "@fluentui/react-components";
 import { ChevronDownFilled, ChevronLeftFilled, ChevronRightFilled, ChevronUpFilled, DismissCircleFilled, RecordStopFilled } from '@fluentui/react-icons';
+import Typewriter from 'typewriter-effect';
+
 
 import princessPeach from '../../assets/princess-peach.png';
 import mario from '../../assets/mario.png';
 import ground from '../../assets/ground.png';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   autoMargin: {
@@ -111,37 +114,60 @@ export const GameConsole: React.FC = (props) => {
   const [xPosition, setXPosition] = useState<number>(0);
   const [moveLeft, setMoveLeft] = useState<boolean>(false);
   const [moveRight, setMoveRight] = useState<boolean>(false);
+  const [xAction, setXAction] = useState<boolean>(false);
+  const [propose, setPropose] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<boolean>(false);
   const maxXPosition = 220;
   const deltaPosition = 10;
 
-  const downHandler = (event: KeyboardEvent) => {
+  const movementHandler = (event: KeyboardEvent) => {
     const key = event.key;
-    if (key === 'ArrowLeft' || key === 'a') {
+    if (key === 'ArrowLeft' || key === 'a' || key === 'D') {
       setMoveLeft(true);
     }
-    else if (key === 'ArrowRight' || key === 'd') {
+    else if (key === 'ArrowRight' || key === 'd' || key === 'D') {
       setMoveRight(true);
     }
   };
 
+  const actionHandler = (event: KeyboardEvent) => {
+    const key = event.key;
+    if (key === 'x' || key === 'X') {
+      setXAction(true);
+    }
+  };
+
+  // event handlers
   useEffect(() => {
-    window.addEventListener('keydown', downHandler);
+    window.addEventListener('keydown', movementHandler);
+    window.addEventListener('keydown', actionHandler);
     return () => {
-      window.removeEventListener('keydown', downHandler);
+      window.removeEventListener('keydown', movementHandler);
+      window.removeEventListener('keydown', actionHandler);
     };
   }, []);
+
+  // user input
   useEffect(() => {
     if (moveLeft && xPosition > 0) {
       setXPosition(xPosition - deltaPosition);
+      setMoveLeft(false);
     }
-    setMoveLeft(false);
-  }, [moveLeft]);
-  useEffect(() => {
-    if (moveRight && xPosition < maxXPosition) {
+    else if (moveRight && xPosition < maxXPosition) {
       setXPosition(xPosition + deltaPosition);
+      setMoveRight(false);
     }
-    setMoveRight(false);
-  }, [moveRight]);
+
+    if (xAction && propose && answer) {
+      navigate('/info');
+    }
+    else if (xAction && xPosition === maxXPosition) {
+      setPropose(true);
+      setXAction(false);
+    }
+  }, [moveLeft, moveRight, xAction]);
+
+  // hint messages
   useEffect(() => {
     if (xPosition === maxXPosition) {
       setHintMessage(`Propose by hitting (X).`);
@@ -151,20 +177,50 @@ export const GameConsole: React.FC = (props) => {
     }
   }, [xPosition]);
 
+  const navigate = useNavigate();
+
   return (
     <Card className={classes.card}>
       <Card className={classes.display}>
         <div className={classes.scene}>
-          <div className={classes.autoMargin}>
-          <Label className={classes.hintLabel}>{hintMessage}</Label>
-          </div>
+          {!propose &&
+            <div className={classes.autoMargin}>
+              <Label className={classes.hintLabel}>{hintMessage}</Label>
+            </div>
+          }
+          {propose && !answer &&
+            <div className={mergeClasses(classes.autoMargin, classes.hintLabel)}>
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter.typeString('Hi princess!')
+                    .pauseFor(2500)
+                    .deleteAll()
+                    .typeString('I have a question for you.')
+                    .pauseFor(2500)
+                    .deleteAll()
+                    .typeString('Will you marry me?')
+                    .pauseFor(2500)
+                    .callFunction(() => {
+                      setAnswer(true)
+                      setHintMessage('Hit (X) to agree.')
+                    })
+                    .start();
+                }}
+              />
+            </div>
+          }
+          {propose && answer &&
+            <div className={classes.autoMargin}>
+              <Label className={classes.hintLabel}>{hintMessage}</Label>
+            </div>
+          }
           <div className={classes.characters}>
-            <img className={classes.mario} src={mario} style={{ position: 'absolute', left: `${xPosition}px` }} />
-            <img className={classes.princessPeach} src={princessPeach} />
+            <img key={'mario'} className={classes.mario} src={mario} style={{ position: 'absolute', left: `${xPosition}px` }} />
+            <img key={'princess'} className={classes.princessPeach} src={princessPeach} />
           </div>
           <div className={classes.ground}>
-            {Array.from(Array(15).keys()).map(() =>
-              <img className={classes.ground} src={ground} />
+            {Array.from(Array(15).keys()).map((_, i) =>
+              <img key={`ground${i}`} className={classes.ground} src={ground} />
             )}
           </div>
         </div>
@@ -174,33 +230,38 @@ export const GameConsole: React.FC = (props) => {
           <Button
             className={classes.up}
             shape='circular'
-            icon={<ChevronUpFilled />} />
+            icon={<ChevronUpFilled />}
+          />
           <Button
             className={classes.left}
             shape='circular'
             icon={<ChevronLeftFilled />}
-            onClick={() => {setMoveLeft(true)}}
+            onClick={() => { setMoveLeft(true) }}
           />
           <Button
             className={classes.right}
             shape='circular'
             icon={<ChevronRightFilled />}
-            onClick={() => {setMoveRight(true)}}
+            onClick={() => { setMoveRight(true) }}
           />
           <Button
             className={classes.down}
             shape='circular'
-            icon={<ChevronDownFilled />} />
+            icon={<ChevronDownFilled />}
+          />
         </div>
         <div className={classes.actionContainer}>
           <Button
             className={classes.aButton}
             shape='circular'
-            icon={<RecordStopFilled />} />
+            icon={<RecordStopFilled />}
+          />
           <Button
             className={classes.bButton}
             shape='circular'
-            icon={<DismissCircleFilled />} />
+            icon={<DismissCircleFilled />}
+            onClick={() => setXAction(true)}
+          />
         </div>
       </div>
     </Card>

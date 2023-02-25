@@ -31,12 +31,6 @@ export const Propose: React.FC = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();
-  const [redirectToInfo, setRedirectToInfo] = useState<boolean>(false);
-  useEffect(() => {
-    if (redirectToInfo) {
-      navigate('/info');
-    }
-  }, [redirectToInfo])
 
   return (
     <Card className={classes.card}>
@@ -48,7 +42,7 @@ export const Propose: React.FC = () => {
         <Button
           className={classes.button}
           appearance='primary'
-          onClick={() => setRedirectToInfo(true)}
+          onClick={() => navigate('/info')}
         >
           I don't want to play
         </Button>

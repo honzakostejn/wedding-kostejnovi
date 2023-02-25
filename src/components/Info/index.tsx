@@ -7,6 +7,8 @@ import { Header } from '../Header';
 import { Button, Label, Text, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
 import { Card, CardFooter, CardHeader, CardPreview, Dropdown, Option, InputField, SwitchField, TextareaField } from '@fluentui/react-components/unstable';
 
+import image from '../../assets/power-couple.jpg';
+
 const useStyles = makeStyles({
   background: {
     ...shorthands.overflow('scroll'),
@@ -139,7 +141,7 @@ export const Info: React.FC = () => {
           <>
             <Card className={classes.card}>
               <CardPreview className={mergeClasses(classes.card, classes.image)}>
-                <img className={classes.image} src="/power-couple.jpg" alt="" />
+                <img key={'power-couple'} className={classes.image} src={image} alt="" />
               </CardPreview>
               <CardFooter>
                 <Label className={classes.label}>{"we're getting married!"}</Label>
