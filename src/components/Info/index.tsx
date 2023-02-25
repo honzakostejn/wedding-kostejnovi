@@ -58,7 +58,7 @@ const useStyles = makeStyles({
     fontSize: tokens.fontSizeBase100,
   },
   details: {
-    ...shorthands.gap(tokens.spacingVerticalXXXL),
+    ...shorthands.gap(tokens.spacingVerticalL),
     display: 'flex',
     flexDirection: 'column'
   },
@@ -114,6 +114,9 @@ export const Info: React.FC = () => {
                   </div>
                   <SwitchField
                     label={<Label className={classes.label}>I'm bringing +1</Label>}
+                  />
+                  <SwitchField
+                    label={<Label className={classes.label}>I have nowhere to stay</Label>}
                   />
                 </div>
               </div>
