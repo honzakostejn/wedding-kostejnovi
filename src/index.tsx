@@ -14,6 +14,8 @@ import { FluentProvider, BrandVariants, createDarkTheme, Portal, createLightThem
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import { ErrorPage } from './components/ErrorPage';
 
+import i18n from './localization/i18n';
+
 const brandVariants: BrandVariants = {
   // https://www.rampgenerator.com/
   10: "#1C2B1F",
