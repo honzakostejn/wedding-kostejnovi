@@ -1,1 +1,48 @@
-{}
+{
+  "propose": {
+    "headerText": "/kostejnovi/svatba> ./zadost",
+    "primaryButton": "nechci hrat"
+  },
+  "gameConsole": {
+    "hintMessages": {
+      "goToThePrincess": "jdi k princezne.",
+      "propose": "pozadej ji o ruku\nstisknutim (X)."
+    },
+    "dialog": {
+      "greeting": "ahoj princezno!",
+      "intro": "mam pro tebe otazku...",
+      "question": "vezmes si me?",
+      "action": "stiskni (X) pro prijeti zadosti."
+    }
+  },
+  "info": {
+    "headerText": "/kostejnovi/wedding> ./informace",
+    "rsvp": {
+      "fullName": "cele jmeno",
+      "email": "email",
+      "telephone": "telefon",
+      "note": "poznamka",
+      "diet": {
+        "label": "dieta",
+        "option_meat": "maso",
+        "option_cheese": "syr",
+        "option_staleBread": "suchy chleba"
+      },
+      "plusOne": "beru drahou polovicku",
+      "overnightStay": "mel bych zajem o nocleh",
+      "rsvpNotification": "uz se nam to blizi, tak nam to tu prosim vypln!",
+      "button_send": "odeslat",
+      "button_cancel": "zrusit"
+    },
+    "card_image": "budeme se brat!",
+    "card_when": {
+      "label": "kdy?",
+      "text": "2023-07-07T14:00:00+02:00"
+    },
+    "card_where": {
+      "label": "kde?",
+      "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
+    },
+    "primaryButton": "vyplnit pozvanku"
+  }
+}

@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import "./styles.css"
@@ -14,7 +14,9 @@ import { FluentProvider, BrandVariants, createDarkTheme, Portal, createLightThem
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import { ErrorPage } from './components/ErrorPage';
 
-import i18n from './localization/i18n';
+// localization
+import './localization/i18n';
+import { PrimaryColor } from './constants';
 
 const brandVariants: BrandVariants = {
   // https://www.rampgenerator.com/
@@ -25,7 +27,7 @@ const brandVariants: BrandVariants = {
   50: "#4E7157",
   60: "#5B8365",
   70: "#689573",
-  80: "#75A781",
+  80: PrimaryColor,
   90: "#83B08D",
   100: "#91B99A",
   110: "#9FC2A7",

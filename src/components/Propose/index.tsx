@@ -8,10 +8,11 @@ import { Button, makeStyles, shorthands, tokens } from '@fluentui/react-componen
 import { Card } from '@fluentui/react-components/unstable';
 import { GameConsole } from '../GameConsole';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   card: {
-    ...shorthands.overflow('scroll'),
+    ...shorthands.overflow('auto'),
     minHeight: "100vh",
     minWidth: "100%"
   },
@@ -29,13 +30,14 @@ const useStyles = makeStyles({
 
 export const Propose: React.FC = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
   return (
     <Card className={classes.card}>
       <Header
-        headerText='/kostejnovi/wedding> ./propose'
+        headerText={t('propose.headerText')}
       />
       <section className={classes.section}>
         <GameConsole />
@@ -44,7 +46,7 @@ export const Propose: React.FC = () => {
           appearance='primary'
           onClick={() => navigate('/info')}
         >
-          I don't want to play
+          {t('propose.primaryButton')}
         </Button>
       </section>
     </Card>

@@ -1,21 +1,35 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 import translations_cs from './resources/cs.json';
 import translations_en from './resources/en.json';
+import { ILanguageOption } from "../interfaces/ILanguageOption";
 
-export default i18next
+export const SupportedLanguages: ILanguageOption[] = [
+  {
+    key: 'cs'
+  },
+  {
+    key: 'en'
+  }
+];
+
+export const FallbackLanguage: ILanguageOption = SupportedLanguages[0];
+
+i18next
   .use(initReactI18next)
-  .use(LanguageDetector)
   .init({
-    fallbackLng: 'cs',
+    debug: true,
+    fallbackLng: FallbackLanguage.key,
+    keySeparator: '.',
     resources: {
       cs: {
-        translantion: translations_cs
+        translation: translations_cs
       },
       en: {
-        tanslations: translations_en
+        translation: translations_en
       }
-    }
+    },
   });
+
+export default i18next;

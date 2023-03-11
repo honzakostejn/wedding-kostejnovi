@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // components
 import { Header } from '../Header';
 
 // fluent ui
-import { Button, Label, Text, makeStyles, mergeClasses, shorthands, tokens } from '@fluentui/react-components';
-import { Card, CardFooter, CardHeader, CardPreview, Dropdown, Option, InputField, SwitchField, TextareaField } from '@fluentui/react-components/unstable';
+import { Button, Switch, Label, Text, makeStyles, shorthands, tokens } from '@fluentui/react-components';
+import { Card, CardFooter, CardHeader, CardPreview, Dropdown, Option, InputField, TextareaField } from '@fluentui/react-components/unstable';
 
-import image from '../../assets/power-couple.jpg';
+import image from '../../assets/kostejnovi.png';
+import { useTranslation } from 'react-i18next';
+import { PrimaryColor } from '../../constants';
 
 const useStyles = makeStyles({
   background: {
-    ...shorthands.overflow('scroll'),
+    ...shorthands.overflow('auto'),
     minHeight: "100vh",
     minWidth: "100%"
   },
@@ -38,6 +40,8 @@ const useStyles = makeStyles({
   },
   image: {
     maxHeight: '60vh',
+    backgroundColor: PrimaryColor,
+    height: 'auto'
   },
   label: {
     ...shorthands.margin('2px', 'none'),
@@ -69,12 +73,27 @@ const useStyles = makeStyles({
 
 export const Info: React.FC = () => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
+
   const [showRSVP, setShowRSVP] = useState<boolean>(false);
+  const [dietOptions, setDietOptions] = useState<string[]>([
+    t('info.rsvp.diet.option_meat'),
+    t('info.rsvp.diet.option_cheese'),
+    t('info.rsvp.diet.option_staleBread')
+  ]);
+
+  useEffect(() => {
+    setDietOptions([
+      t('info.rsvp.diet.option_meat'),
+      t('info.rsvp.diet.option_cheese'),
+      t('info.rsvp.diet.option_staleBread')
+    ])
+  }, [i18n.resolvedLanguage]);
 
   return (
     <Card className={classes.background}>
       <Header
-        headerText='/kostejnovi/wedding> ./info'
+        headerText={t('info.headerText')}
       />
       <section className={classes.section}>
         {showRSVP &&
@@ -83,58 +102,60 @@ export const Info: React.FC = () => {
               <div className={classes.inputForm}>
                 <div>
                   <InputField
-                    label={<Label className={classes.label}>full name</Label>}
+                    label={<Label className={classes.label}>{t('info.rsvp.fullName')}</Label>}
                     size='small'
                   />
                   <InputField
-                    label={<Label className={classes.label}>email</Label>}
+                    label={<Label className={classes.label}>{t('info.rsvp.email')}</Label>}
                     size='small'
                   />
                   <InputField
-                    label={<Label className={classes.label}>telephone</Label>}
+                    label={<Label className={classes.label}>{t('info.rsvp.telephone')}</Label>}
                     size='small'
                   />
                   <TextareaField
-                    label={<Label className={classes.label}>note</Label>}
+                    label={<Label className={classes.label}>{t('info.rsvp.note')}</Label>}
                     size='small'
                   />
                 </div>
                 <div className={classes.details}>
                   <div className={classes.dropdown}>
-                    <Label className={classes.label}>diet</Label>
+                    <Label className={classes.label}>{t('info.rsvp.diet.label')}</Label>
                     <Dropdown
                       className={classes.dropdownInput}
                       size='small'
-                      defaultSelectedOptions={['ham']}
+                      defaultSelectedOptions={[t('info.rsvp.diet.option_meat')]}
                     >
-                      {['ham', 'cheese', 'stale bread'].map(option => <Option key={option}>
-                        {option}
-                      </Option>)}
+                      {dietOptions.map(option =>
+                        <Option key={option}>
+                          {option}
+                        </Option>
+                      )}
                     </Dropdown>
                   </div>
-                  <SwitchField
-                    label={<Label className={classes.label}>I'm bringing +1</Label>}
+                  <Switch
+                    label={<Label className={classes.label}>{t('info.rsvp.plusOne')}</Label>}
                   />
-                  <SwitchField
-                    label={<Label className={classes.label}>I have nowhere to stay</Label>}
+                  <Switch
+                    label={<Label className={classes.label}>{t('info.rsvp.overnightStay')}</Label>}
                   />
                 </div>
               </div>
-              <Label size='small'>invites are closing soon, don't miss out!</Label>
+              <Label size='small'>{t('info.rsvp.rsvpNotification')}</Label>
               <CardFooter className={classes.cardFooter}>
                 <Button
                   className={classes.primaryButton}
                   appearance='primary'
                   onClick={() => setShowRSVP(false)}
                 >
-                  send
+                  {t('info.rsvp.button_send')}
                 </Button>
                 <Button
                   className={classes.secondaryButton}
                   appearance='secondary'
                   onClick={() => setShowRSVP(false)}
                 >
-                  cancel
+                  {t('info.rsvp.button_cancel')}
                 </Button>
               </CardFooter>
             </Card>
@@ -143,27 +164,27 @@ export const Info: React.FC = () => {
         {!showRSVP &&
           <>
             <Card className={classes.card}>
-              <CardPreview className={mergeClasses(classes.card, classes.image)}>
-                <img key={'power-couple'} className={classes.image} src={image} alt="" />
+              <CardPreview className={classes.card}>
+                <img key={'kostejnovi'} className={classes.image} src={image} alt="" />
               </CardPreview>
               <CardFooter>
-                <Label className={classes.label}>{"we're getting married!"}</Label>
+                <Label className={classes.label}>{t('info.card_image')}</Label>
               </CardFooter>
             </Card>
             <Card className={classes.card}>
               <CardHeader
-                header={<Label className={classes.label}>when?</Label>}
+                header={<Label className={classes.label}>{t('info.card_when.label')}</Label>}
               />
               <Text className={classes.text}>
-                {"2023-07-07T13:00:00Z"}
+                {t('info.card_when.text')}
               </Text>
             </Card>
             <Card className={classes.card}>
               <CardHeader
-                header={<Label className={classes.label}>where?</Label>}
+                header={<Label className={classes.label}>{t('info.card_where.label')}</Label>}
               />
               <Text className={classes.text}>
-                {"not that far away..."}
+              {t('info.card_where.text')}
               </Text>
             </Card>
             <Button
@@ -171,7 +192,7 @@ export const Info: React.FC = () => {
               appearance='primary'
               onClick={() => setShowRSVP(true)}
             >
-              rsvp
+              {t('info.primaryButton')}
             </Button>
           </>
         }

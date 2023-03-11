@@ -1,1 +1,48 @@
-{}
+{
+  "propose": {
+    "headerText": "/kostejnovi/wedding> ./propose",
+    "primaryButton": "I don't want to play"
+  },
+  "gameConsole": {
+    "hintMessages": {
+      "goToThePrincess": "go to the princess.",
+      "propose": "propose by hitting (X)."
+    },
+    "dialog": {
+      "greeting": "hi princess!",
+      "intro": "I have a question for you...",
+      "question": "will you marry me?",
+      "action": "hit (X) to agree."
+    }
+  },
+  "info": {
+    "headerText": "/kostejnovi/wedding> ./info",
+    "rsvp": {
+      "fullName": "full name",
+      "email": "email",
+      "telephone": "telephone",
+      "note": "note",
+      "diet": {
+        "label": "diet",
+        "option_meat": "meat",
+        "option_cheese": "cheese",
+        "option_staleBread": "stale bread"
+      },
+      "plusOne": "I'm bringing +1",
+      "overnightStay": "I have nowhere to stay",
+      "rsvpNotification": "invites are closing soon, don't miss out!",
+      "button_send": "send",
+      "button_cancel": "cancel"
+    },
+    "card_image": "we're getting married!",
+    "card_when": {
+      "label": "when?",
+      "text": "2023-07-07T14:00:00+02:00"
+    },
+    "card_where": {
+      "label": "where?",
+      "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
+    },
+    "primaryButton": "rsvp"
+  }
+}

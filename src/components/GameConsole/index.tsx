@@ -10,6 +10,8 @@ import princessPeach from '../../assets/princess-peach.png';
 import mario from '../../assets/mario.png';
 import ground from '../../assets/ground.png';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { PrimaryColor } from '../../constants';
 
 const useStyles = makeStyles({
   autoMargin: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles({
     ...shorthands.margin('none'),
     ...shorthands.padding('none'),
     boxShadow: tokens.shadow2,
-    backgroundColor: "#75A781",
+    backgroundColor: PrimaryColor,
     maxHeight: "240px",
     width: '100%',
   },
@@ -110,6 +112,8 @@ const useStyles = makeStyles({
 
 export const GameConsole: React.FC = (props) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
+ 
   const [hintMessage, setHintMessage] = useState<string>();
   const [xPosition, setXPosition] = useState<number>(0);
   const [moveLeft, setMoveLeft] = useState<boolean>(false);
@@ -122,7 +126,7 @@ export const GameConsole: React.FC = (props) => {
 
   const movementHandler = (event: KeyboardEvent) => {
     const key = event.key;
-    if (key === 'ArrowLeft' || key === 'a' || key === 'D') {
+    if (key === 'ArrowLeft' || key === 'a' || key === 'A') {
       setMoveLeft(true);
     }
     else if (key === 'ArrowRight' || key === 'd' || key === 'D') {
@@ -170,12 +174,12 @@ export const GameConsole: React.FC = (props) => {
   // hint messages
   useEffect(() => {
     if (xPosition === maxXPosition) {
-      setHintMessage(`Propose by hitting (X).`);
+      setHintMessage(t('gameConsole.hintMessages.propose') ?? '');
     }
     else {
-      setHintMessage(`Go to the princess.`);
+      setHintMessage(t('gameConsole.hintMessages.goToThePrincess') ?? '');
     }
-  }, [xPosition]);
+  }, [xPosition, i18n.resolvedLanguage]);
 
   const navigate = useNavigate();
 
@@ -192,17 +196,17 @@ export const GameConsole: React.FC = (props) => {
             <div className={mergeClasses(classes.autoMargin, classes.hintLabel)}>
               <Typewriter
                 onInit={(typewriter) => {
-                  typewriter.typeString('Hi princess!')
+                  typewriter.typeString(t('gameConsole.dialog.greeting'))
                     .pauseFor(2500)
                     .deleteAll()
-                    .typeString('I have a question for you.')
+                    .typeString(t('gameConsole.dialog.intro'))
                     .pauseFor(2500)
                     .deleteAll()
-                    .typeString('Will you marry me?')
+                    .typeString(t('gameConsole.dialog.question'))
                     .pauseFor(2500)
                     .callFunction(() => {
                       setAnswer(true)
-                      setHintMessage('Hit (X) to agree.')
+                      setHintMessage(t('gameConsole.dialog.action') ?? '')
                     })
                     .start();
                 }}

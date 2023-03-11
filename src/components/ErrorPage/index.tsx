@@ -6,6 +6,7 @@ import { Header } from '../Header';
 // fluent ui
 import { Label, makeStyles, shorthands, tokens } from '@fluentui/react-components';
 import { Card } from '@fluentui/react-components/unstable';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   container: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 
 export const ErrorPage: React.FC = () => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
 
   return (
     <Card className={classes.container}>
