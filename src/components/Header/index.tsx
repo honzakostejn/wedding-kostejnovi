@@ -49,8 +49,8 @@ export const Header: React.FC<IHeaderProps> = (props) => {
             }}
           >
             {SupportedLanguages.map((languageOption) => {
-              return <option>{languageOption.key}</option>
-            })}
+              return <option key={languageOption.key}>{languageOption.key}</option>
+            })} 
           </Select>
         </div>
       </Card>

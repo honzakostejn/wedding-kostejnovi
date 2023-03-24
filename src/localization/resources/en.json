@@ -44,5 +44,8 @@
       "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
     },
     "primaryButton": "rsvp"
+  },
+  "errorPage": {
+    "label": "You won't find anything here..."
   }
 }

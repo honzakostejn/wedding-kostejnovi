@@ -31,7 +31,7 @@ export const ErrorPage: React.FC = () => {
       <Header
         headerText='/kostejnovi/wedding> ./error'
       />
-      <Label className={classes.label}>You won't find anything here...</Label>
+      <Label className={classes.label}>{t('errorPage.label')}</Label>
     </Card>
   );
 };
