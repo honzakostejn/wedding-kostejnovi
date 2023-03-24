@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // fluent ui
 import { Card, Select } from '@fluentui/react-components/unstable';
-import { Label, makeStyles, shorthands, Switch, tokens } from "@fluentui/react-components";
+import { Label, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { IHeaderProps } from '../../interfaces/IHeaderProps';
 import { useTranslation } from 'react-i18next';
 import { SupportedLanguages } from '../../localization/i18n';
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 export const Header: React.FC<IHeaderProps> = (props) => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const [selectedLanguageValue, setSelectedLanguageValue] = React.useState<string>(i18n.resolvedLanguage);
   useEffect(() => {

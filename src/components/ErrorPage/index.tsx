@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 export const ErrorPage: React.FC = () => {
   const classes = useStyles();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.container}>

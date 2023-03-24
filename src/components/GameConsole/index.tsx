@@ -110,7 +110,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const GameConsole: React.FC = (props) => {
+export const GameConsole: React.FC = () => {
   const classes = useStyles();
   const { t, i18n } = useTranslation();
  
