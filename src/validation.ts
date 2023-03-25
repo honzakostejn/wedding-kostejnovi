@@ -1,5 +1,5 @@
 export const validateEmail = (email: string | undefined): 'success' | 'error' => {
-  const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
+  const regex = /^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$/g
   if (regex.test(email ?? '')) {
     return 'success';
   }

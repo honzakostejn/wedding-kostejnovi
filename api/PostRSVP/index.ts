@@ -17,10 +17,10 @@ export const PostRSVP: AzureFunction = async function (context: Context, req: Ht
 
     await tableClient.upsertEntity({
         partitionKey: "rsvp",
-        rowKey: body.email,
-        fullName: body.fullName,
-        phoneNumber: body.phoneNumber,
-        note: body.note,
+        rowKey: body.email.trim().toLocaleLowerCase(),
+        fullName: body.fullName.trim(),
+        phoneNumber: body.phoneNumber.trim(),
+        note: body.note.trim(),
         diet: body.diet,
         plusOne: body.plusOne,
         overnightStay: body.overnightStay

@@ -155,7 +155,7 @@ export const Info: React.FC = () => {
                     label={<Label className={classes.label}>{t('info.rsvp.fullName.label')}</Label>}
                     size='small'
                     required={true}
-                    onChange={(_, data) => { setFullName(data.value) }}
+                    onChange={(_, data) => { setFullName(data.value.trim()) }}
                     validationState={validateFormInput ? (fullName ? 'success' : 'error') : 'success'}
                     validationMessage={validateFormInput && !fullName ? t('info.rsvp.fullName.validationMessage') : undefined}
                   />
@@ -163,7 +163,7 @@ export const Info: React.FC = () => {
                     label={<Label className={classes.label}>{t('info.rsvp.email.label')}</Label>}
                     size='small'
                     required={true}
-                    onChange={(_, data) => { setEmail(data.value) }}
+                    onChange={(_, data) => { setEmail(data.value.trim().toLowerCase()) }}
                     validationState={validateFormInput ? validateEmail(email) : 'success'}
                     validationMessage={validateFormInput && validateEmail(email) === 'error' ? t('info.rsvp.email.validationMessage') : undefined}
                   />
@@ -171,7 +171,7 @@ export const Info: React.FC = () => {
                     label={<Label className={classes.label}>{t('info.rsvp.telephone.label')}</Label>}
                     size='small'
                     required={true}
-                    onChange={(_, data) => { setPhoneNumber(data.value) }}
+                    onChange={(_, data) => { setPhoneNumber(data.value.trim()) }}
                     validationState={validateFormInput ? validatePhoneNumber(phoneNumber) : 'success'}
                     validationMessage={validateFormInput && validatePhoneNumber(phoneNumber) === 'error' ? t('info.rsvp.telephone.validationMessage') : undefined}
                   />
