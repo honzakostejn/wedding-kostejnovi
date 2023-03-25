@@ -18,9 +18,18 @@
   "info": {
     "headerText": "/kostejnovi/wedding> ./informace",
     "rsvp": {
-      "fullName": "cele jmeno",
-      "email": "email",
-      "telephone": "telefon",
+      "fullName": {
+        "label": "cele jmeno",
+        "validationMessage": "radi bychom vedeli, o koho jde"
+      },
+      "email": {
+        "label": "email",
+        "validationMessage": "takvidelsinekdy@email.cz"
+      },
+      "telephone": {
+        "label": "telefon",
+        "validationMessage": "tak si na tohle cislo zavolej frajere"
+      },
       "note": "poznamka",
       "diet": {
         "label": "dieta",
@@ -43,7 +52,12 @@
       "label": "kde?",
       "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
     },
-    "primaryButton": "vyplnit pozvanku"
+    "primaryButton": "vyplnit pozvanku",
+    "responseMessage": {
+      "success": "tesime se na tebe!",
+      "error": "neco se pokazilo... zkus to pozdeji, nebo kontaktuj kostejny naprimo",
+      "button": "vrat me zpatky"
+    }
   },
   "errorPage": {
     "label": "budes hodne nekde..."

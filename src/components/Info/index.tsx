@@ -4,84 +4,23 @@ import React, { useEffect, useState } from 'react';
 import { Header } from '../Header';
 
 // fluent ui
-import { Button, Switch, Label, Text, makeStyles, shorthands, tokens } from '@fluentui/react-components';
+import { Button, Switch, Label, Text } from '@fluentui/react-components';
 import { Card, CardFooter, CardHeader, CardPreview, Dropdown, Option, InputField, TextareaField } from '@fluentui/react-components/unstable';
 
 import image from '../../assets/kostejnovi.png';
 import { useTranslation } from 'react-i18next';
-import { PrimaryColor } from '../../constants';
-
-const useStyles = makeStyles({
-  background: {
-    ...shorthands.overflow('auto'),
-    minHeight: "100vh",
-    minWidth: "100%"
-  },
-  section: {
-    ...shorthands.margin('auto'),
-    ...shorthands.gap(tokens.spacingVerticalM),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  card: {
-    boxShadow: tokens.shadow16,
-  },
-  inputForm: {
-    ...shorthands.gap(tokens.spacingVerticalXL),
-    ...shorthands.padding(tokens.spacingHorizontalM),
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  dropdown: {
-    display: 'grid',
-  },
-  dropdownInput: {
-    ...shorthands.padding(tokens.spacingVerticalNone, tokens.spacingHorizontalSNudge)
-  },
-  image: {
-    maxHeight: '60vh',
-    backgroundColor: PrimaryColor,
-    height: 'auto'
-  },
-  label: {
-    ...shorthands.margin('2px', 'none'),
-    textAlign: 'left',
-    fontSize: tokens.fontSizeBase100,
-    paddingLeft: '2px',
-  },
-  text: {
-    ...shorthands.margin('auto', 'none'),
-    textAlign: 'left',
-    fontSize: tokens.fontSizeBase100,
-  },
-  primaryButton: {
-    fontSize: tokens.fontSizeBase100,
-    color: 'black',
-  },
-  secondaryButton: {
-    fontSize: tokens.fontSizeBase100,
-  },
-  details: {
-    ...shorthands.gap(tokens.spacingVerticalL),
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  cardFooter: {
-    flexDirection: 'column'
-  }
-});
+import { validateEmail, validatePhoneNumber } from '../../validation';
+import { useStyles } from './styles';
 
 export const Info: React.FC = () => {
-  const classes = useStyles();
   const { t, i18n } = useTranslation();
+  const classes = useStyles();
 
-  const [showRSVP, setShowRSVP] = useState<boolean>(false);
   const [dietOptions, setDietOptions] = useState<string[]>([
     t('info.rsvp.diet.option_meat'),
     t('info.rsvp.diet.option_cheese'),
     t('info.rsvp.diet.option_staleBread')
   ]);
-
   useEffect(() => {
     setDietOptions([
       t('info.rsvp.diet.option_meat'),
@@ -90,77 +29,88 @@ export const Info: React.FC = () => {
     ])
   }, [i18n.resolvedLanguage]);
 
+  const [showRSVP, setShowRSVP] = useState<boolean>(false);
+  useEffect(() => {
+    if (!showRSVP) {
+      setValidateFormInput(false);
+      setTriggerPostData(false);
+      setShowErrorResponseMessage(false);
+      setShowSuccessResponseMessage(false);
+    }
+  }, [showRSVP]);
+
+  const [showErrorResponseMessage, setShowErrorResponseMessage] = useState<boolean>(false);
+  const [showSuccessResponseMessage, setShowSuccessResponseMessage] = useState<boolean>(false);
+
+  const [fullName, setFullName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [phoneNumber, setPhoneNumber] = useState<string>();
+  const [note, setNote] = useState<string>();
+  const [diet, setDiet] = useState<string>(t('info.rsvp.diet.option_meat') ?? '');
+  const [plusOne, setPlusOne] = useState<boolean>(false);
+  const [overnightStay, setOvernightStay] = useState<boolean>(false);
+
+  const [validateFormInput, setValidateFormInput] = useState<boolean>(false);
+
+  const [triggerPostData, setTriggerPostData] = useState<boolean>(false);
+  useEffect(() => {
+    const postData = async () => {
+      if (triggerPostData) {
+        setValidateFormInput(true);
+
+        if (rsvpRequiredAttributesAreFilled()) {
+          if (await postRSVP()) setShowSuccessResponseMessage(true);
+        }
+        else {
+          setTriggerPostData(false);
+        }
+      }
+    };
+    postData().catch(() => {
+      setShowErrorResponseMessage(true);
+    });
+  }, [triggerPostData]);
+
+  const rsvpRequiredAttributesAreFilled = (): boolean => {
+    if (fullName && email && phoneNumber && validateEmail(email) === 'success' && validatePhoneNumber(phoneNumber) === 'success') {
+      return true;
+    }
+    else {
+      return false;
+    }
+  };
+
+  const postRSVP = async () => {
+    const body = {
+      fullName: fullName,
+      email: email,
+      phoneNumber: phoneNumber,
+      note: note,
+      diet: diet,
+      plusOne: plusOne,
+      overnightStay: overnightStay
+    };
+
+    const response = await fetch('/api/postrsvp', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error! Response status code: ${response.status}`);
+    }
+    return true;
+  };
+
   return (
     <Card className={classes.background}>
       <Header
         headerText={t('info.headerText')}
       />
       <section className={classes.section}>
-        {showRSVP &&
-          <>
-            <Card className={classes.card}>
-              <div className={classes.inputForm}>
-                <div>
-                  <InputField
-                    label={<Label className={classes.label}>{t('info.rsvp.fullName')}</Label>}
-                    size='small'
-                  />
-                  <InputField
-                    label={<Label className={classes.label}>{t('info.rsvp.email')}</Label>}
-                    size='small'
-                  />
-                  <InputField
-                    label={<Label className={classes.label}>{t('info.rsvp.telephone')}</Label>}
-                    size='small'
-                  />
-                  <TextareaField
-                    label={<Label className={classes.label}>{t('info.rsvp.note')}</Label>}
-                    size='small'
-                  />
-                </div>
-                <div className={classes.details}>
-                  <div className={classes.dropdown}>
-                    <Label className={classes.label}>{t('info.rsvp.diet.label')}</Label>
-                    <Dropdown
-                      className={classes.dropdownInput}
-                      size='small'
-                      defaultSelectedOptions={[t('info.rsvp.diet.option_meat')]}
-                    >
-                      {dietOptions.map(option =>
-                        <Option key={option}>
-                          {option}
-                        </Option>
-                      )}
-                    </Dropdown>
-                  </div>
-                  <Switch
-                    label={<Label className={classes.label}>{t('info.rsvp.plusOne')}</Label>}
-                  />
-                  <Switch
-                    label={<Label className={classes.label}>{t('info.rsvp.overnightStay')}</Label>}
-                  />
-                </div>
-              </div>
-              <Label size='small'>{t('info.rsvp.rsvpNotification')}</Label>
-              <CardFooter className={classes.cardFooter}>
-                <Button
-                  className={classes.primaryButton}
-                  appearance='primary'
-                  onClick={() => setShowRSVP(false)}
-                >
-                  {t('info.rsvp.button_send')}
-                </Button>
-                <Button
-                  className={classes.secondaryButton}
-                  appearance='secondary'
-                  onClick={() => setShowRSVP(false)}
-                >
-                  {t('info.rsvp.button_cancel')}
-                </Button>
-              </CardFooter>
-            </Card>
-          </>
-        }
         {!showRSVP &&
           <>
             <Card className={classes.card}>
@@ -184,7 +134,7 @@ export const Info: React.FC = () => {
                 header={<Label className={classes.label}>{t('info.card_where.label')}</Label>}
               />
               <Text className={classes.text}>
-              {t('info.card_where.text')}
+                {t('info.card_where.text')}
               </Text>
             </Card>
             <Button
@@ -193,6 +143,111 @@ export const Info: React.FC = () => {
               onClick={() => setShowRSVP(true)}
             >
               {t('info.primaryButton')}
+            </Button>
+          </>
+        }
+        {showRSVP && !showSuccessResponseMessage && !showErrorResponseMessage &&
+          <>
+            <Card className={classes.card}>
+              <div className={classes.inputForm}>
+                <div>
+                  <InputField
+                    label={<Label className={classes.label}>{t('info.rsvp.fullName.label')}</Label>}
+                    size='small'
+                    required={true}
+                    onChange={(_, data) => { setFullName(data.value) }}
+                    validationState={validateFormInput ? (fullName ? 'success' : 'error') : 'success'}
+                    validationMessage={validateFormInput && !fullName ? t('info.rsvp.fullName.validationMessage') : undefined}
+                  />
+                  <InputField
+                    label={<Label className={classes.label}>{t('info.rsvp.email.label')}</Label>}
+                    size='small'
+                    required={true}
+                    onChange={(_, data) => { setEmail(data.value) }}
+                    validationState={validateFormInput ? validateEmail(email) : 'success'}
+                    validationMessage={validateFormInput && validateEmail(email) === 'error' ? t('info.rsvp.email.validationMessage') : undefined}
+                  />
+                  <InputField
+                    label={<Label className={classes.label}>{t('info.rsvp.telephone.label')}</Label>}
+                    size='small'
+                    required={true}
+                    onChange={(_, data) => { setPhoneNumber(data.value) }}
+                    validationState={validateFormInput ? validatePhoneNumber(phoneNumber) : 'success'}
+                    validationMessage={validateFormInput && validatePhoneNumber(phoneNumber) === 'error' ? t('info.rsvp.telephone.validationMessage') : undefined}
+                  />
+                  <TextareaField
+                    label={<Label className={classes.label}>{t('info.rsvp.note')}</Label>}
+                    size='small'
+                    onChange={(_, data) => { setNote(data.value) }}
+                  />
+                </div>
+                <div className={classes.details}>
+                  <div className={classes.dropdown}>
+                    <Label className={classes.label}>{t('info.rsvp.diet.label')}</Label>
+                    <Dropdown
+                      className={classes.dropdownInput}
+                      size='small'
+                      defaultSelectedOptions={[diet]}
+                      onOptionSelect={(_, data) => { setDiet(data.selectedOptions[0] ?? diet) }}
+                    >
+                      {dietOptions.map(option =>
+                        <Option key={option}>
+                          {option}
+                        </Option>
+                      )}
+                    </Dropdown>
+                  </div>
+                  <Switch
+                    label={<Label className={classes.label}>{t('info.rsvp.plusOne')}</Label>}
+                    onChange={(_, data) => { setPlusOne(data.checked) }}
+                  />
+                  <Switch
+                    label={<Label className={classes.label}>{t('info.rsvp.overnightStay')}</Label>}
+                    onChange={(_, data) => { setOvernightStay(data.checked) }}
+                  />
+                </div>
+              </div>
+              <Label size='small'>{t('info.rsvp.rsvpNotification')}</Label>
+              <CardFooter className={classes.cardFooter}>
+                <Button
+                  className={classes.primaryButton}
+                  appearance='primary'
+                  onClick={() => setTriggerPostData(true)}
+                >
+                  {t('info.rsvp.button_send')}
+                </Button>
+                <Button
+                  className={classes.secondaryButton}
+                  appearance='secondary'
+                  onClick={() => setShowRSVP(false)}
+                >
+                  {t('info.rsvp.button_cancel')}
+                </Button>
+              </CardFooter>
+            </Card>
+          </>
+        }
+        {showRSVP && showSuccessResponseMessage && !showErrorResponseMessage &&
+          <>
+            <Label className={classes.label}>{t('info.responseMessage.success')}</Label>
+            <Button
+              className={classes.primaryButton}
+              appearance='primary'
+              onClick={() => setShowRSVP(false)}
+            >
+              {t('info.responseMessage.button')}
+            </Button>
+          </>
+        }
+        {showRSVP && !showSuccessResponseMessage && showErrorResponseMessage &&
+          <>
+            <Label className={classes.label}>{t('info.responseMessage.error')}</Label>
+            <Button
+              className={classes.primaryButton}
+              appearance='primary'
+              onClick={() => setShowRSVP(false)}
+            >
+              {t('info.responseMessage.button')}
             </Button>
           </>
         }

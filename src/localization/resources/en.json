@@ -18,9 +18,18 @@
   "info": {
     "headerText": "/kostejnovi/wedding> ./info",
     "rsvp": {
-      "fullName": "full name",
-      "email": "email",
-      "telephone": "telephone",
+      "fullName": {
+        "label": "full name",
+        "validationMessage": "yeah, but who are you"
+      },
+      "email": {
+        "label": "email",
+        "validationMessage": "trysomethinglike@this.com"
+      },
+      "telephone": {
+        "label": "telephone",
+        "validationMessage": "call yourself then"
+      },
       "note": "note",
       "diet": {
         "label": "diet",
@@ -43,7 +52,12 @@
       "label": "where?",
       "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
     },
-    "primaryButton": "rsvp"
+    "primaryButton": "rsvp",
+    "responseMessage": {
+      "success": "we are looking forward to you!",
+      "error": "something went wrong... try again later or contact kostejns directly",
+      "button": "bring me back"
+    }
   },
   "errorPage": {
     "label": "You won't find anything here..."
