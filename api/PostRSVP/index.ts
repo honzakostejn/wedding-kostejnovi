@@ -20,7 +20,7 @@ export const PostRSVP: AzureFunction = async function (context: Context, req: Ht
         rowKey: body.email.trim().toLocaleLowerCase(),
         fullName: body.fullName.trim(),
         phoneNumber: body.phoneNumber.trim(),
-        note: body.note.trim(),
+        note: body.note,
         diet: body.diet,
         plusOne: body.plusOne,
         overnightStay: body.overnightStay
