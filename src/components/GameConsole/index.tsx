@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { Card } from '@fluentui/react-components/unstable';
-import { Button, Label, makeStyles, mergeClasses, shorthands, tokens } from "@fluentui/react-components";
+import { Card } from '@fluentui/react-components';
+import { Button, Label, mergeClasses } from "@fluentui/react-components";
 import { ChevronDownFilled, ChevronLeftFilled, ChevronRightFilled, ChevronUpFilled, DismissCircleFilled, RecordStopFilled } from '@fluentui/react-icons';
 import Typewriter from 'typewriter-effect';
 
@@ -11,108 +11,14 @@ import mario from '../../assets/mario.png';
 import ground from '../../assets/ground.png';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { PrimaryColor } from '../../constants';
-
-const useStyles = makeStyles({
-  autoMargin: {
-    ...shorthands.margin('auto'),
-  },
-  card: {
-    ...shorthands.margin('none', 'auto'),
-    boxShadow: tokens.shadow16,
-    minHeight: "400px",
-    minWidth: '365px',
-  },
-  display: {
-    ...shorthands.margin('none'),
-    ...shorthands.padding('none'),
-    boxShadow: tokens.shadow2,
-    backgroundColor: PrimaryColor,
-    maxHeight: "240px",
-    width: '100%',
-  },
-  scene: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  hintLabel: {
-    ...shorthands.margin('auto'),
-    fontSize: tokens.fontSizeBase100,
-    color: 'black',
-  },
-  characters: {
-    ...shorthands.margin('auto', 'none', tokens.spacingVerticalNone),
-    display: 'flex',
-  },
-  mario: {
-    ...shorthands.margin('auto', 'auto', tokens.spacingVerticalNone, tokens.spacingHorizontalS),
-    height: '96px',
-    width: 'auto',
-  },
-  princessPeach: {
-    ...shorthands.margin('auto', tokens.spacingHorizontalS, tokens.spacingVerticalNone, 'auto'),
-    height: '96px',
-    width: 'auto',
-  },
-  ground: {
-    height: '24px',
-    width: 'auto',
-  },
-  container: {
-    ...shorthands.margin('auto'),
-    ...shorthands.gap('70px'),
-    display: 'inline-grid',
-    gridTemplateColumns: 'repeat(2)',
-    gridTemplateRows: 'repeat(1)',
-    maxHeight: "90px"
-  },
-  navigationContainer: {
-    ...shorthands.margin('auto'),
-    ...shorthands.gap('5px'),
-    display: 'inline-grid',
-    gridTemplateColumns: 'repeat(2, 30px)',
-    gridTemplateRows: 'repeat(3, 30px)',
-    gridRowStart: '1',
-    gridColumnStart: '1'
-  },
-  actionContainer: {
-    ...shorthands.margin('auto'),
-    ...shorthands.gap('5px'),
-    display: 'inline-grid',
-    gridTemplateColumns: 'repeat(2, 30px)',
-    gridTemplateRows: 'repeat(2, 30px)',
-    gridRowStart: '1',
-    gridColumnStart: '2'
-  },
-  up: {
-    gridRowStart: '1',
-    gridColumnStart: '2'
-  },
-  left: {
-    gridRowStart: '2',
-    gridColumnStart: '1',
-  },
-  right: {
-    gridRowStart: '2',
-    gridColumnStart: '3'
-  },
-  down: {
-    gridRowStart: '3',
-    gridColumnStart: '2'
-  },
-  aButton: {
-    gridRowStart: '1',
-    gridColumnStart: '2'
-  },
-  bButton: {
-    gridRowStart: '2',
-    gridColumnStart: '1'
-  }
-});
+import { useStyles } from './styles';
+import { useGlobalStyles } from '../../styles';
 
 export const GameConsole: React.FC = () => {
+  const globalClasses = useGlobalStyles();
   const classes = useStyles();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
  
   const [hintMessage, setHintMessage] = useState<string>();
   const [xPosition, setXPosition] = useState<number>(0);
@@ -121,8 +27,18 @@ export const GameConsole: React.FC = () => {
   const [xAction, setXAction] = useState<boolean>(false);
   const [propose, setPropose] = useState<boolean>(false);
   const [answer, setAnswer] = useState<boolean>(false);
-  const maxXPosition = 220;
+  const maxXPosition = 190;
   const deltaPosition = 10;
+
+  // event handlers
+  useEffect(() => {
+    window.addEventListener('keydown', movementHandler);
+    window.addEventListener('keydown', actionHandler);
+    return () => {
+      window.removeEventListener('keydown', movementHandler);
+      window.removeEventListener('keydown', actionHandler);
+    };
+  }, []);
 
   const movementHandler = (event: KeyboardEvent) => {
     const key = event.key;
@@ -141,17 +57,7 @@ export const GameConsole: React.FC = () => {
     }
   };
 
-  // event handlers
-  useEffect(() => {
-    window.addEventListener('keydown', movementHandler);
-    window.addEventListener('keydown', actionHandler);
-    return () => {
-      window.removeEventListener('keydown', movementHandler);
-      window.removeEventListener('keydown', actionHandler);
-    };
-  }, []);
-
-  // user input
+  // handle user input
   useEffect(() => {
     if (moveLeft && xPosition > 0) {
       setXPosition(xPosition - deltaPosition);
@@ -181,19 +87,16 @@ export const GameConsole: React.FC = () => {
     }
   }, [xPosition, i18n.resolvedLanguage]);
 
-  const navigate = useNavigate();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.consoleBody}>
       <Card className={classes.display}>
         <div className={classes.scene}>
           {!propose &&
-            <div className={classes.autoMargin}>
-              <Label className={classes.hintLabel}>{hintMessage}</Label>
-            </div>
+              <Label className={mergeClasses(globalClasses.autoMargin, classes.hintLabel)}>{hintMessage}</Label>
           }
           {propose && !answer &&
-            <div className={mergeClasses(classes.autoMargin, classes.hintLabel)}>
+            <section className={mergeClasses(globalClasses.autoMargin, classes.hintLabel)}>
               <Typewriter
                 onInit={(typewriter) => {
                   typewriter.typeString(t('gameConsole.dialog.greeting'))
@@ -211,26 +114,24 @@ export const GameConsole: React.FC = () => {
                     .start();
                 }}
               />
-            </div>
+            </section>
           }
           {propose && answer &&
-            <div className={classes.autoMargin}>
-              <Label className={classes.hintLabel}>{hintMessage}</Label>
-            </div>
+              <Label className={mergeClasses(globalClasses.autoMargin, classes.hintLabel)}>{hintMessage}</Label>
           }
-          <div className={classes.characters}>
-            <img key={'mario'} className={classes.mario} src={mario} style={{ position: 'absolute', left: `${xPosition}px` }} />
+          <section className={classes.charactersContainer}>
+            <img key={'mario'} className={classes.mario} src={mario} style={{ left: `${xPosition}px` }} />
             <img key={'princess'} className={classes.princessPeach} src={princessPeach} />
-          </div>
-          <div className={classes.ground}>
-            {Array.from(Array(15).keys()).map((_, i) =>
-              <img key={`ground${i}`} className={classes.ground} src={ground} />
+          </section>
+          <section className={classes.groundContainer}>
+            {Array.from(Array(14).keys()).map((_, i) =>
+              <img key={`ground${i}`} className={classes.groundImage} src={ground} />
             )}
-          </div>
+          </section>
         </div>
       </Card>
-      <div className={classes.container}>
-        <div className={classes.navigationContainer}>
+      <div className={classes.buttons}>
+        <section className={classes.navigationContainer}>
           <Button
             className={classes.up}
             shape='circular'
@@ -253,8 +154,8 @@ export const GameConsole: React.FC = () => {
             shape='circular'
             icon={<ChevronDownFilled />}
           />
-        </div>
-        <div className={classes.actionContainer}>
+        </section>
+        <section className={classes.actionContainer}>
           <Button
             className={classes.aButton}
             shape='circular'
@@ -266,7 +167,7 @@ export const GameConsole: React.FC = () => {
             icon={<DismissCircleFilled />}
             onClick={() => setXAction(true)}
           />
-        </div>
+        </section>
       </div>
     </Card>
   );

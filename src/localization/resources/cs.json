@@ -16,7 +16,7 @@
     }
   },
   "info": {
-    "headerText": "/kostejnovi/wedding> ./informace",
+    "headerText": "/kostejnovi/svatba> ./informace",
     "rsvp": {
       "fullName": {
         "label": "cele jmeno",
@@ -60,6 +60,7 @@
     }
   },
   "errorPage": {
+    "headerText": "/kostejnovi/svatba> ./chyba",
     "label": "budes hodne nekde..."
   }
 }

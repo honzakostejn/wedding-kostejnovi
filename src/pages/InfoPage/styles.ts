@@ -7,14 +7,25 @@ export const useStyles = makeStyles({
     minHeight: "100vh",
     minWidth: "100%"
   },
+  flexContainer: {
+    ...shorthands.gap(tokens.spacingVerticalM),
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'start',
+    alignContent: 'start'
+  },
+  flexContainerColumn: {
+    ...shorthands.gap(tokens.spacingVerticalM),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   section: {
     ...shorthands.margin('auto'),
     ...shorthands.gap(tokens.spacingVerticalM),
     display: 'flex',
     flexDirection: 'column',
-  },
-  card: {
-    boxShadow: tokens.shadow16,
   },
   inputForm: {
     ...shorthands.gap(tokens.spacingVerticalXL),
@@ -30,25 +41,20 @@ export const useStyles = makeStyles({
   },
   image: {
     maxHeight: '60vh',
+    minHeight: '410px',
     backgroundColor: PrimaryColor,
-    height: 'auto'
+    width: 'auto'
   },
   label: {
     ...shorthands.margin('2px', 'none'),
     textAlign: 'left',
+    lineHeight: '2',
     fontSize: tokens.fontSizeBase100,
     paddingLeft: '2px',
   },
   text: {
     ...shorthands.margin('auto', 'none'),
     textAlign: 'left',
-    fontSize: tokens.fontSizeBase100,
-  },
-  primaryButton: {
-    fontSize: tokens.fontSizeBase100,
-    color: 'black',
-  },
-  secondaryButton: {
     fontSize: tokens.fontSizeBase100,
   },
   details: {
@@ -58,5 +64,12 @@ export const useStyles = makeStyles({
   },
   cardFooter: {
     flexDirection: 'column'
-  }
+  },
+  responseMessageContainer: {
+    ...shorthands.gap(tokens.spacingVerticalXXXL),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

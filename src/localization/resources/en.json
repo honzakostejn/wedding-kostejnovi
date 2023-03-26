@@ -60,6 +60,7 @@
     }
   },
   "errorPage": {
-    "label": "You won't find anything here..."
+    "headerText": "/kostejnovi/wedding> ./error",
+    "label": "you won't find anything here..."
   }
 }

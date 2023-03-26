@@ -1,31 +1,12 @@
 import React, { useEffect } from 'react';
 
 // fluent ui
-import { Card, Select } from '@fluentui/react-components/unstable';
-import { Label, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { Card, Select } from '@fluentui/react-components';
+import { Label } from "@fluentui/react-components";
 import { IHeaderProps } from '../../interfaces/IHeaderProps';
 import { useTranslation } from 'react-i18next';
 import { SupportedLanguages } from '../../localization/i18n';
-
-const useStyles = makeStyles({
-  card: {
-    ...shorthands.margin('auto', 'none'),
-    display: 'flex',
-    flexDirection: 'row',
-    boxShadow: tokens.shadow16,
-    maxHeight: '60px',
-  },
-  label: {
-    ...shorthands.flex('auto'),
-    ...shorthands.margin('auto'),
-    textAlign: 'left',
-    fontSize: tokens.fontSizeBase100
-  },
-  select: {
-    display: 'flex',
-    flexDirection: 'row-reverse',
-  },
-});
+import { useStyles } from './styles';
 
 export const Header: React.FC<IHeaderProps> = (props) => {
   const classes = useStyles();
@@ -50,7 +31,7 @@ export const Header: React.FC<IHeaderProps> = (props) => {
           >
             {SupportedLanguages.map((languageOption) => {
               return <option key={languageOption.key}>{languageOption.key}</option>
-            })} 
+            })}
           </Select>
         </div>
       </Card>

@@ -6,13 +6,13 @@ import "./styles.css"
 import "./fonts/PressStart2P-Regular.ttf"
 
 // components
-import { Propose } from './components/Propose';
-import { Info } from './components/Info';
+import { ProposePage } from './pages/ProposePage';
+import { InfoPage } from './pages/InfoPage';
 
 // fluent ui
-import { FluentProvider, BrandVariants, createDarkTheme, Portal, createLightTheme } from '@fluentui/react-components';
+import { FluentProvider, BrandVariants, createDarkTheme, Portal } from '@fluentui/react-components';
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
-import { ErrorPage } from './components/ErrorPage';
+import { ErrorPage } from './pages/ErrorPage';
 
 // localization
 import './localization/i18n';
@@ -38,9 +38,7 @@ const brandVariants: BrandVariants = {
   160: "#E6EFE8"
 };
 const darkAppTheme = createDarkTheme(brandVariants);
-const lightAppTheme = createLightTheme(brandVariants);
 darkAppTheme.fontFamilyBase = "PressStart2P-Regular";
-lightAppTheme.fontFamilyBase = "PressStart2P-Regular";
 
 const router = createBrowserRouter([
   {
@@ -50,12 +48,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/propose",
-    element: <Propose />,
+    element: <ProposePage />,
     errorElement: <ErrorPage />
   },
   {
     path: '/info',
-    element: <Info />,
+    element: <InfoPage />,
     errorElement: <ErrorPage />
   }
 ]);
