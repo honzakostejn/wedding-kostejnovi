@@ -46,11 +46,23 @@
     "card_image": "budeme se brat!",
     "card_when": {
       "label": "kdy?",
-      "text": "2023-07-07T14:00:00+02:00"
+      "text": "2023/07/07 - 14:00"
     },
     "card_where": {
       "label": "kde?",
-      "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
+      "text": "pivovar muflon - videnska 405, praha 4 - kunratice"
+    },
+    "card_dresscode" : {
+      "label": "dresscode?",
+      "text": "postriziny"
+    },
+    "card_weddingGift" : {
+      "label": "svatebni dar?",
+      "text": "mili hoste, misto daru nam prosim prispejte na svatbu. budeme vdecni za jakoukoliv castku."
+    },
+    "card_harmonogram" : {
+      "label": "harmonogram:",
+      "text": "14:00 - brany pivovaru se oteviraji.\n14:45 - presun na obrad do zameckeho parku.\n15:00 - obrad.\n16:00 - zabavny program v pivovaru.\n20:00 - nerizeny zabavny program v pivovaru."
     },
     "primaryButton": "vyplnit pozvanku",
     "responseMessage": {

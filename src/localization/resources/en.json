@@ -46,11 +46,23 @@
     "card_image": "we're getting married!",
     "card_when": {
       "label": "when?",
-      "text": "2023-07-07T14:00:00+02:00"
+      "text": "2023/07/07 - 02:00 PM"
     },
     "card_where": {
       "label": "where?",
-      "text": "pivovar muflon - videnska 405, Praha 4 - Kunratice"
+      "text": "pivovar muflon - videnska 405, praha 4 - kunratice"
+    },
+    "card_dresscode" : {
+      "label": "dresscode?",
+      "text": "postriziny"
+    },
+    "card_weddinggift" : {
+      "label": "wedding gift?",
+      "text": "dear guests, instead of a gift, please donate to our wedding. we will be grateful for any amount."
+    },
+    "card_harmonogram" : {
+      "label": "harmonogram:",
+      "text": "14:00 - gates of the brewery are opening.\n14:45 - transfer to the castle park for the ceremony.\n15:00 - the ceremony.\n16:00 - entertainment program in the brewery.\n20:00 - uncontrolled entertainment program in the brewery."
     },
     "primaryButton": "rsvp",
     "responseMessage": {

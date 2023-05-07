@@ -141,6 +141,30 @@ export const InfoPage: React.FC = () => {
                 {t('info.card_where.text')}
               </Text>
             </Card>
+            <Card className={globalClasses.card}>
+              <CardHeader
+                header={<Label className={classes.label}>{t('info.card_dresscode.label')}</Label>}
+              />
+              <Text className={classes.text}>
+                {t('info.card_dresscode.text')}
+              </Text>
+            </Card>
+            <Card className={globalClasses.card}>
+              <CardHeader
+                header={<Label className={classes.label}>{t('info.card_weddingGift.label')}</Label>}
+              />
+              <Text className={classes.text}>
+                {t('info.card_weddingGift.text')}
+              </Text>
+            </Card>
+            <Card className={globalClasses.card}>
+              <CardHeader
+                header={<Label className={classes.label}>{t('info.card_harmonogram.label')}</Label>}
+              />
+              <Text>
+                {t('info.card_harmonogram.text').split('\n').map(x => (<Text block key='' className={classes.text}>{x}</Text>))}
+              </Text>
+            </Card>
             <Button
               className={globalClasses.primaryButton}
               appearance='primary'
