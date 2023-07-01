@@ -7,7 +7,8 @@ import { Header } from '../../components/Header';
 import { Field } from '@fluentui/react-components/unstable';
 import { Button, Card, CardFooter, CardHeader, CardPreview, Combobox, Input, Label, mergeClasses, Option, Switch, Text, Textarea } from '@fluentui/react-components';
 
-import image from '../../assets/kostejnovi.png';
+import poster from '../../assets/kostejnovi.png';
+import map from '../../assets/map.png';
 import { useTranslation } from 'react-i18next';
 import { validateEmail, validatePhoneNumber } from '../../validation';
 import { useStyles } from './styles';
@@ -117,7 +118,7 @@ export const InfoPage: React.FC = () => {
           <section className={classes.flexContainerColumn}>
             <Card className={globalClasses.card}>
               <CardPreview className={globalClasses.card}>
-                <img key={'kostejnovi'} className={classes.image} src={image} alt="" />
+                <img key={'kostejnovi'} className={classes.image} src={poster} alt="" />
               </CardPreview>
               <CardFooter>
                 <Label className={classes.label}>{t('info.card_image')}</Label>
@@ -129,8 +130,8 @@ export const InfoPage: React.FC = () => {
               <CardHeader
                 header={<Label className={classes.label}>{t('info.card_when.label')}</Label>}
               />
-              <Text className={classes.text}>
-                {t('info.card_when.text')}
+              <Text>
+                {t('info.card_when.text').split('\n').map(x => (<Text block key='' className={classes.text}>{x}</Text>))}
               </Text>
             </Card>
             <Card className={globalClasses.card}>
@@ -138,7 +139,7 @@ export const InfoPage: React.FC = () => {
                 header={<Label className={classes.label}>{t('info.card_where.label')}</Label>}
               />
               <Text className={classes.text}>
-                {t('info.card_where.text')}
+                {t('info.card_where.text').split('\n').map(x => (<Text block key='' className={classes.text}>{x}</Text>))}
               </Text>
             </Card>
             <Card className={globalClasses.card}>
@@ -165,13 +166,21 @@ export const InfoPage: React.FC = () => {
                 {t('info.card_harmonogram.text').split('\n').map(x => (<Text block key='' className={classes.text}>{x}</Text>))}
               </Text>
             </Card>
-            <Button
+            <Card className={globalClasses.card}>
+              <CardHeader
+                header={<Label className={classes.label}>{t('info.card_map')}</Label>}
+              />
+              <CardPreview className={globalClasses.card}>
+                <img key={'map'} className={classes.image} src={map} alt="" />
+              </CardPreview>
+            </Card>
+            {/* <B§utton
               className={globalClasses.primaryButton}
               appearance='primary'
               onClick={() => setShowRSVP(true)}
             >
               {t('info.primaryButton')}
-            </Button>
+            </Button> */}
           </section>
         </section>
       }

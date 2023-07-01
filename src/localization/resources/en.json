@@ -44,25 +44,26 @@
       "button_cancel": "cancel"
     },
     "card_image": "we're getting married!",
+    "card_map": "directions to the castle park:",
     "card_when": {
       "label": "when?",
-      "text": "2023/07/07 - 02:00 PM"
+      "text": "2023/07/07 - 02:00 PM\nthe event takes place in any weather.\nwe ask guests to prepare a head covering for possible heat and an umbrella for possible rain."
     },
     "card_where": {
       "label": "where?",
-      "text": "pivovar muflon - videnska 405, praha 4 - kunratice"
+      "text": "pivovar muflon - videnska 405, praha 4 - kunratice\nbus stop 'Betáň' (PID)\nit's possible to park your car in front of near houses."
     },
     "card_dresscode" : {
       "label": "dresscode?",
-      "text": "postriziny"
+      "text": "cutting it short"
     },
-    "card_weddinggift" : {
+    "card_weddingGift" : {
       "label": "wedding gift?",
       "text": "dear guests, instead of a gift, please donate to our wedding. we will be grateful for any amount."
     },
     "card_harmonogram" : {
       "label": "harmonogram:",
-      "text": "14:00 - gates of the brewery are opening.\n14:45 - transfer to the castle park for the ceremony.\n15:00 - the ceremony.\n16:00 - entertainment program in the brewery.\n20:00 - uncontrolled entertainment program in the brewery."
+      "text": "14:00 - gates of the brewery are opening.\n14:45 - transfer to the castle park for the ceremony.\n15:00 - the ceremony.\n16:00 - entertainment program in the brewery.\n20:00 - uncontrolled entertainment program in the brewery.\n02:00 - the end of the event."
     },
     "primaryButton": "rsvp",
     "responseMessage": {

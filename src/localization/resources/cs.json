@@ -44,13 +44,14 @@
       "button_cancel": "zrusit"
     },
     "card_image": "budeme se brat!",
+    "card_map": "cesta do zameckeho parku:",
     "card_when": {
       "label": "kdy?",
-      "text": "2023/07/07 - 14:00"
+      "text": "2023/07/07 - 14:00\nudalost se kona za kazdeho pocasi.\nprosime hosty, aby si pripravili pokryvku hlavy na pripadne vedro a destnik na pripadny dest."
     },
     "card_where": {
       "label": "kde?",
-      "text": "pivovar muflon - videnska 405, praha 4 - kunratice"
+      "text": "pivovar muflon - videnska 405, praha 4 - kunratice\nautobusova zastavka 'Betáň' (PID)\nparkovani je mozne u domu v okolnich ulicich."
     },
     "card_dresscode" : {
       "label": "dresscode?",
@@ -62,7 +63,7 @@
     },
     "card_harmonogram" : {
       "label": "harmonogram:",
-      "text": "14:00 - brany pivovaru se oteviraji.\n14:45 - presun na obrad do zameckeho parku.\n15:00 - obrad.\n16:00 - zabavny program v pivovaru.\n20:00 - nerizeny zabavny program v pivovaru."
+      "text": "14:00 - brany pivovaru se oteviraji.\n14:45 - presun na obrad do zameckeho parku.\n15:00 - obrad.\n16:00 - zabavny program v pivovaru.\n20:00 - nerizeny zabavny program v pivovaru.\n02:00 - konec zabavy."
     },
     "primaryButton": "vyplnit pozvanku",
     "responseMessage": {
